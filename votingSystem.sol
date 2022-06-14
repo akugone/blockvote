@@ -142,7 +142,7 @@ contract Voting is Ownable {
 
 
     // on ouvre la session des votes
-    function timeToVote(uint _choice) public  onlyRegisteredVoters {
+    function timeToVote(uint _choice) public onlyRegisteredVoters {
 
         // on verifie que l'admin a bien ouvert la session de vote
         require(workflowStatus == WorkflowStatus.VotingSessionStarted , "la saisie des votes n est pas ouverte" );
