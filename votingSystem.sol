@@ -115,7 +115,7 @@ contract Voting is Ownable {
         bytes memory tempDescription = bytes(proposals[msg.sender].description);
 
         // on limite a une seule proposition
-        require(tempDescription.length != 0 , "vous avez deja fait une proposition");
+        require(tempDescription.length == 0 , "vous avez deja fait une proposition");
 
         //On stocke la proposition dans le mapping
         proposals[msg.sender]= Proposal(_proposition, 0);
@@ -142,7 +142,7 @@ contract Voting is Ownable {
 
 
     // on ouvre la session des votes
-    function timeToVote(uint _choice) public onlyRegisteredVoters {
+    function timeToVote(uint _choice) public  onlyRegisteredVoters {
 
         // on verifie que l'admin a bien ouvert la session de vote
         require(workflowStatus == WorkflowStatus.VotingSessionStarted , "la saisie des votes n est pas ouverte" );
@@ -151,7 +151,7 @@ contract Voting is Ownable {
         require( _choice <= proposalsArray.length, "ce choix n est pas possible");
 
         //on l'empeche de voter une 2 fois
-        require(voters[msg.sender].hasVoted, "tu as deja vote petit macron");
+         require(!voters[msg.sender].hasVoted, "tu as deja vote petit macron");
 
         // on indique que le votant à voté
         voters[msg.sender].hasVoted = true;
